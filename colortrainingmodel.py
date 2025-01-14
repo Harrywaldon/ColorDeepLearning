@@ -17,7 +17,7 @@ classes = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'white', 'black
 img_height, img_width = 50, 50
 batch_size = 16
 epochs = 10  # Set number of epochs
-learning_rate = 0.001
+learning_rate = 0.0001
 random_seed = 32
 
 # Set the random seed for reproducibility

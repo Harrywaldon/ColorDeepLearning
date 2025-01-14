@@ -14,7 +14,7 @@ class CNN(nn.Module):
         self.conv3 = nn.Conv2d(64, 128, kernel_size=3, stride=1, padding=1)
         self.fc1 = nn.Linear(128 * (50 // 8) * (50 // 8), 512)
         self.dropout = nn.Dropout(0.5)
-        self.fc2 = nn.Linear(512, 9)  # 8 classes
+        self.fc2 = nn.Linear(512, 10)  # 8 classes
 
     def forward(self, x):
         x = self.pool(F.relu(self.conv1(x)))  # Apply first conv layer and pooling
@@ -28,7 +28,7 @@ class CNN(nn.Module):
 
 ## Recreate the model and load the state_dict
 model = CNN()
-state_dict = torch.load("color_classifier_model.pth")  # Load the state dictionary
+state_dict = torch.load("color_classifier_model_test.pth", weights_only=True)  # Load the state dictionary
 model.load_state_dict(state_dict)         # Load into the model
 model.eval()                              # Switch to evaluation mode
 
@@ -42,7 +42,7 @@ transform = transforms.Compose([
 st.title("Image Classification Interface")
 uploaded_file = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg"])
 
-classes = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'white', 'black']
+classes = ['black', 'blue', 'green', 'grey', 'orange', 'purple', 'red', 'white', 'yellow']
 
 if uploaded_file is not None:
     try:
