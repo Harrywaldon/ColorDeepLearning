@@ -12,7 +12,7 @@ import seaborn as sns
 
 # Set the base directory for the dataset
 base_dir = './color_images/'
-classes = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'white', 'black']
+classes = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'white', 'grey' 'black']
 # Parameters
 img_height, img_width = 50, 50
 batch_size = 16
@@ -77,7 +77,7 @@ class CNN(nn.Module):
         self.conv3 = nn.Conv2d(64, 128, kernel_size=3, stride=1, padding=1)
         self.fc1 = nn.Linear(128 * (img_height // 8) * (img_width // 8), 512)
         self.dropout = nn.Dropout(0.5)
-        self.fc2 = nn.Linear(512, 10)  # 8 classes
+        self.fc2 = nn.Linear(512, 9)  # Creates output layer, predicting among 9 classes
 
     def forward(self, x):
         x = self.pool(F.relu(self.conv1(x)))  # Apply first conv layer and pooling
@@ -143,7 +143,7 @@ plt.legend()
 plt.show()
 
 # Save the model
-torch.save(model.state_dict(), 'color_classifier_model_test.pth')
+torch.save(model.state_dict(), 'color_classifier_model.pth')
 
 # Evaluate the model on test set and print accuracy for each class
 model.eval()

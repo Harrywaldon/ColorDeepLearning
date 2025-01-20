@@ -14,7 +14,7 @@ class CNN(nn.Module):
         self.conv3 = nn.Conv2d(64, 128, kernel_size=3, stride=1, padding=1)
         self.fc1 = nn.Linear(128 * (50 // 8) * (50 // 8), 512)
         self.dropout = nn.Dropout(0.5)
-        self.fc2 = nn.Linear(512, 10)  # 8 classes
+        self.fc2 = nn.Linear(512, 9)  # 8 classes
 
     def forward(self, x):
         x = self.pool(F.relu(self.conv1(x)))  # Apply first conv layer and pooling
@@ -28,7 +28,7 @@ class CNN(nn.Module):
 
 ## Recreate the model and load the state_dict
 model = CNN()
-state_dict = torch.load("color_classifier_model_test.pth", weights_only=True)  # Load the state dictionary
+state_dict = torch.load("./ColorDeepLearning/color_classifier_model_test.pth")  # Load the state dictionary
 model.load_state_dict(state_dict)         # Load into the model
 model.eval()                              # Switch to evaluation mode
 
@@ -56,6 +56,7 @@ if uploaded_file is not None:
         # Make a prediction
         with torch.no_grad():
             output = model(input_tensor)
+
             prediction = classes[torch.argmax(output, dim=1).item()]  # Get class index
 
         st.write(f"Predicted Class: {prediction}")
